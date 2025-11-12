@@ -38,9 +38,10 @@ public class ConnectScript : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("Joined room successfully");
-        SceneManager.LoadScene("LobbyScene");
+        Debug.Log("OnJoinedRoom() called — attempting to load RoomScene");
+        SceneManager.LoadScene("RoomScene");
     }
+
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
