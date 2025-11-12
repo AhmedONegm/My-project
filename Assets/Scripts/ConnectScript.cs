@@ -1,26 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEngine.SceneManagement; // Add this if you are using TextMeshPro components
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class ConnectScript : MonoBehaviour
+public class ConnectScript : MonoBehaviourPunCallbacks
 {
-    // Declare a reference to a TMP_InputField (or TMP_Text if you meant a label)
-    [SerializeField] TMP_InputField textInputField;
+    [SerializeField] private TMP_InputField textInputField;
 
     public void OnButtonClick()
     {
-        if (textInputField.text == null){
-            Debug.LogWarning("Player name is null");
+        if (string.IsNullOrWhiteSpace(textInputField.text))
+        {
+            Debug.LogWarning("Player name is empty");
             return;
         }
-        else
-        {
-            PlayerPrefs.SetString("PlayerName", textInputField.text);
-            Debug.Log("Player name set to: " + textInputField.text);
-            SceneManager.LoadScene("RoomScene");
-        }
+
+        string playerName = textInputField.text.Trim();
+        PlayerPrefs.SetString("PlayerName", playerName);
+        PhotonNetwork.NickName = playerName;
+
+        Debug.Log("Player name set to: " + playerName);
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Connected to Photon Master Server");
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.LogWarning("No random room available, creating a new one.");
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("Joined room successfully");
+        SceneManager.LoadScene("LobbyScene");
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.LogWarning("Failed to join room: " + message);
     }
 }
