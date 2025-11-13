@@ -23,12 +23,8 @@ The project includes two main scenes and one additional interactive feature, fol
 ---
 
 ## Extra Feature
-You can choose between:
 - **Spawn Cube Button:** Instantiates a cube prefab at a random position in the scene.  
-  **or**
-- **Voice On/Off Button:** Toggles microphone state and logs `Microphone On / Off` to the console.
 
-*(Implementation may vary depending on your chosen feature.)*
 
 ---
 
@@ -53,17 +49,11 @@ The repository includes at least **three commits** representing key development 
 ## Submission
 - **Deliverables:** Public GitHub link, short screen recording, and this README.  
 - **Deadline:** 48 hours after receiving the test.  
-- **Evaluation Criteria (15 pts):**
-  - Scene Flow: 4 pts  
-  - Code Quality: 4 pts  
-  - Logic: 3 pts  
-  - Debug Awareness: 2 pts  
-  - Git Usage: 2 pts  
-  - **Bonus:** Extra feature or creative touch
+  
+  - **Bonus:**Made it multiplayer using Photon Pun2
 
 ---
 
 ## Author
 Ahmed Osama  
-*Date of Submission: 11/11/2025*
-
+*Date of Submission: 13/11/2025*
